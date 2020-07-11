@@ -58,12 +58,12 @@ class LinkedList
 
   # returns the node at the given index
   def at(index)
-    return nil if @head.next == nil || index > size  
-    count = 0
+    return nil if @head.next == nil || index >= size || index < 0
+    position = 0
     node = @head.next
-    until count == index || node.next == nil
+    until position == index
       node = node.next
-      count += 1
+      position += 1
     end
     node
   end
@@ -110,57 +110,45 @@ class LinkedList
   end
 
   #Extra Credit
-  #insert_at(value, index) that inserts the node with the provided value at the given index
-  #remove_at(index) that removes the node at the given index. 
-    #(You will need to update the links of your nodes in the list when you remove a node.)
+  # inserts the node with the provided value at the given index
+  def insert_at(value, index)
+    if index > size || index < 0
+      nil
+    elsif index == 0 || @head.next == nil
+      prepend(value)
+    elsif index == size
+      append(value)
+    else
+      node = @head.next
+      position = 0
+      until position == index - 1
+        node = node.next
+        position += 1
+      end
+      new_node = Node.new
+      new_node.value = value
+      new_node.next = node.next
+      node.next = new_node
+    end
+  end
+
+  # removes the node at the given index. 
+  def remove_at(index)
+    if @head.next == nil || index > size || index < 0
+      nil
+    elsif index == 0
+      @head.next = @head.next.next
+    elsif index == size
+      pop
+    else
+      node = @head.next
+      position = 0
+      until position == index - 1
+        node = node.next
+        position += 1
+      end
+      node.next = node.next.next
+    end
+  end
 
 end
-
-list = LinkedList.new
-p list.pop
-p list.to_s
-p list.size
-p list.first_node
-list.append(4)
-p list.tail
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-list.append(23)
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-list.append(28)
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-list.prepend(3)
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-list.prepend(2)
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-list.prepend(1)
-p list.to_s
-p list.size
-p list.first_node
-p list.tail
-p list.at(0)
-p list.at(1)
-p list.at(4)
-p list.at(5)
-p list.at(28)
-puts "POP!"
-list.pop
-p list.to_s
-p list.contains?(23)
-p list.contains?(28)
-p list.find(23)
-p list.find(28)
