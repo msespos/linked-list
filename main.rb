@@ -14,7 +14,7 @@ class LinkedList
   def initialize
     @head = Node.new
   end
-  
+
   # adds a new node containing value to the end of the list
   def append(value)
     node = Node.new
@@ -42,13 +42,13 @@ class LinkedList
     end
     count
   end
-  
+
   # returns the first node in the list
   def first_node
     @head.next
   end
-  
-  #tail returns the last node in the list
+
+  # tail returns the last node in the list
   def tail
     return nil if @head.next == nil
     node = @head.next
@@ -81,7 +81,7 @@ class LinkedList
     return false if @head.next == nil
     node = @head.next
     node = node.next until node.value == value || node.next == nil
-    node.value == value ? true : false
+    node.value == value
   end
 
   # returns the index of the node containing value, or nil if not found.
@@ -96,8 +96,8 @@ class LinkedList
     node.value == value ? index : nil
   end
 
-  #represent your LinkedList objects as strings, so you can print them out and preview them
-    #in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> nil
+  # represent your LinkedList objects as strings, so you can print them out and preview them
+    # in the console. The format should be: ( value ) -> ( value ) -> ( value ) -> nil
   def to_s
     return "nil" if @head.next == nil
     linked_list = "( #{@head.next.value} ) -> "
@@ -106,10 +106,10 @@ class LinkedList
       node = node.next
       linked_list += "( #{node.value} ) -> "
     end
-    linked_list += "nil"
+    linked_list + "nil"
   end
 
-  #Extra Credit
+  # Extra Credit
   # inserts the node with the provided value at the given index
   def insert_at(value, index)
     if index > size || index < 0
@@ -132,7 +132,7 @@ class LinkedList
     end
   end
 
-  # removes the node at the given index. 
+  # removes the node at the given index.
   def remove_at(index)
     if @head.next == nil || index > size || index < 0
       nil
