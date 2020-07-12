@@ -110,6 +110,18 @@ class LinkedList
   end
 
   # Extra Credit
+
+  # helper method for insert_at and remove_at methods
+  def find_using_index(index)
+    node = @head.next
+    position = 0
+    until position == index - 1
+      node = node.next
+      position += 1
+    end
+    node
+  end
+
   # inserts the node with the provided value at the given index
   def insert_at(value, index)
     if index > size || index < 0
@@ -119,12 +131,7 @@ class LinkedList
     elsif index == size
       append(value)
     else
-      node = @head.next
-      position = 0
-      until position == index - 1
-        node = node.next
-        position += 1
-      end
+      node = find_using_index(index)
       new_node = Node.new
       new_node.value = value
       new_node.next = node.next
@@ -141,12 +148,7 @@ class LinkedList
     elsif index == size
       pop
     else
-      node = @head.next
-      position = 0
-      until position == index - 1
-        node = node.next
-        position += 1
-      end
+      node = find_using_index(index)
       node.next = node.next.next
     end
   end
